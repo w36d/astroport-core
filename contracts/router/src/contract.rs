@@ -7,7 +7,7 @@ use cosmwasm_std::{
 use cw2::{get_contract_version, set_contract_version};
 use cw20::Cw20ReceiveMsg;
 
-use astroport::asset::{addr_opt_validate, Asset, AssetInfo};
+use astroport::asset::{Asset, AssetInfo};
 use astroport::pair::{QueryMsg as PairQueryMsg, SimulationResponse};
 use astroport::querier::query_pair_info;
 use astroport::router::{
@@ -53,16 +53,17 @@ pub fn instantiate(
 /// * **ExecuteMsg::ExecuteSwapOperations {
 ///             operations,
 ///             minimum_receive,
-///             to
+///             to,
+///             max_spread,
 ///         }** Performs swap operations with the specified parameters.
 ///
-/// * **ExecuteMsg::ExecuteSwapOperation { operation, to }** Execute a single swap operation.
+/// * **ExecuteMsg::ExecuteSwapOperation { operation, to, max_spread, single }** Execute a single swap operation.
 ///
 /// * **ExecuteMsg::AssertMinimumReceive {
 ///             asset_info,
 ///             prev_balance,
 ///             minimum_receive,
-///             receiver
+///             receiver,
 ///         }** Checks if an ask amount is higher than or equal to the minimum amount to receive.
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn execute(
